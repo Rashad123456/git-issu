@@ -1,4 +1,4 @@
-// Elements সিলেক্ট করা
+
 const loginForm = document.getElementById('login-form');
 const loginPage = document.getElementById('login-page');
 const dashboardPage = document.getElementById('dashboard-page');
@@ -15,7 +15,7 @@ const modalLoader = document.getElementById('modal-loader');
 let allData = [];
 let currentFilter = 'All';
 
-// ১. লগইন লজিক
+
 loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const user = document.getElementById('username').value.trim();
@@ -30,7 +30,7 @@ loginForm.addEventListener('submit', (e) => {
     }
 });
 
-// ২. ডাটা ফেচ করা
+
 async function loadData(query = '') {
     loader.classList.remove('hide');
     issuesGrid.innerHTML = '';
@@ -45,7 +45,7 @@ async function loadData(query = '') {
     } finally { loader.classList.add('hide'); }
 }
 
-// ৩. কার্ড রেন্ডার করা
+
 function filterAndRender() {
     let filtered = currentFilter === 'All' ? allData : allData.filter(i => i.status?.toLowerCase() === currentFilter.toLowerCase());
     totalIssuesText.innerText = filtered.length;
@@ -54,7 +54,7 @@ function filterAndRender() {
         const isOpen = item.status?.toLowerCase() === 'open';
         const priority = (item.priority || 'Low').toLowerCase();
         
-        // প্রায়োরিটি কালার লজিক
+       
         const pColor = priority === 'high' ? 'bg-red-50 text-red-500' : priority === 'medium' ? 'bg-yellow-50 text-yellow-600' : 'bg-gray-50 text-gray-500';
         
         const statusImg = isOpen ? 'assets/Open-Status.png' : 'assets/Closed- Status .png';
@@ -79,7 +79,7 @@ function filterAndRender() {
     }).join('');
 }
 
-// ৪. ট্যাব ফিল্টার
+
 tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         tabBtns.forEach(b => {
@@ -93,7 +93,7 @@ tabBtns.forEach(btn => {
     });
 });
 
-// ৫. সার্চ ও মোডাল লজিক
+
 searchBtn.onclick = () => loadData(searchInput.value);
 searchInput.onkeypress = (e) => { if(e.key === 'Enter') loadData(searchInput.value); };
 
