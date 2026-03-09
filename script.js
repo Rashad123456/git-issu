@@ -1,4 +1,4 @@
-// ১. প্রয়োজনীয় এলিমেন্টগুলো সিলেক্ট করা
+
 const loginForm = document.getElementById('login-form');
 const loginPage = document.getElementById('login-page');
 const dashboardPage = document.getElementById('dashboard-page');
@@ -9,7 +9,6 @@ const tabBtns = document.querySelectorAll('.tab-btn');
 const searchInput = document.getElementById('search-input');
 const searchBtn = document.getElementById('search-btn');
 
-// মোডাল এলিমেন্টসমূহ
 const modal = document.getElementById('issue-modal');
 const modalContent = document.getElementById('modal-content');
 const modalLoader = document.getElementById('modal-loader');
@@ -18,7 +17,7 @@ const closeModalBtn = document.getElementById('close-modal-btn');
 let allData = [];
 let currentFilter = 'All';
 
-// ২. লগইন ফাংশনালিটি
+
 loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const userVal = document.getElementById('username').value.trim();
@@ -27,15 +26,13 @@ loginForm.addEventListener('submit', (e) => {
     if (userVal === 'admin' && passVal === 'admin123') {
         loginPage.classList.add('hide');
         dashboardPage.classList.remove('hide');
-        loadData(); // লগইন সফল হলে ডাটা লোড হবে
+        loadData(); 
     } else {
         const errorMsg = document.getElementById('login-error');
         errorMsg.classList.remove('hide');
         setTimeout(() => errorMsg.classList.add('hide'), 3000);
     }
 });
-
-// ৩. API থেকে ডাটা ফেচ করা
 async function loadData(query = '') {
     loader.classList.remove('hide');
     issuesGrid.innerHTML = '';
@@ -54,8 +51,6 @@ async function loadData(query = '') {
         loader.classList.add('hide'); 
     }
 }
-
-// ৪. কার্ড রেন্ডার করা
 function filterAndRender() {
     let filtered = currentFilter === 'All' 
         ? allData 
@@ -66,8 +61,6 @@ function filterAndRender() {
     issuesGrid.innerHTML = filtered.map(item => {
         const isOpen = item.status?.toLowerCase() === 'open';
         const priority = (item.priority || 'Low').toLowerCase();
-        
-        // প্রায়োরিটি অনুযায়ী কালার
         const pColors = {
             high: 'bg-red-50 text-red-500',
             medium: 'bg-yellow-50 text-yellow-600',
@@ -97,7 +90,6 @@ function filterAndRender() {
     }).join('');
 }
 
-// ৫. ট্যাব ফিল্টারিং
 tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         tabBtns.forEach(b => {
@@ -110,12 +102,8 @@ tabBtns.forEach(btn => {
         filterAndRender();
     });
 });
-
-// ৬. সার্চ ফাংশনালিটি
 searchBtn.onclick = () => loadData(searchInput.value);
 searchInput.onkeypress = (e) => { if(e.key === 'Enter') loadData(searchInput.value); };
-
-// ৭. সিঙ্গেল ইস্যু মোডাল ওপেন করা
 async function openSingle(id) {
     modal.classList.remove('hide');
     modalContent.classList.add('hide');
@@ -125,7 +113,6 @@ async function openSingle(id) {
         const result = await res.json();
         const data = result.data || result;
 
-        // পপ-আপে ডাটা বসানো
         document.getElementById('modal-title').innerText = data.title;
         document.getElementById('modal-desc').innerText = data.description || "No description.";
         document.getElementById('modal-author').innerText = data.author;
@@ -148,13 +135,9 @@ async function openSingle(id) {
         modal.classList.add('hide'); 
     }
 }
-
-// ৮. মোডাল ক্লোজ বাটন ফাংশনালিটি
 closeModalBtn.onclick = () => {
     modal.classList.add('hide');
 };
-
-// মোডালের বাইরের অংশে ক্লিক করলে বন্ধ হবে
 window.onclick = (e) => {
     if (e.target === modal) {
         modal.classList.add('hide');
