@@ -67,10 +67,8 @@ function filterAndRender() {
             low: 'bg-gray-50 text-gray-500'
         };
         const pClass = pColors[priority] || pColors.low;
-
         const statusImg = isOpen ? 'assets/Open-Status.png' : 'assets/Closed- Status .png';
         const topBorder = isOpen ? 'border-green-400' : 'border-purple-400';
-
         return `
         <div onclick="openSingle('${item._id || item.id}')" class="bg-white rounded-2xl border-t-4 ${topBorder} shadow-sm p-5 hover:shadow-md transition-all cursor-pointer flex flex-col h-full border-x border-b border-gray-100 relative group">
             <div class="flex justify-between items-start mb-3">
@@ -89,7 +87,6 @@ function filterAndRender() {
         </div>`;
     }).join('');
 }
-
 tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         tabBtns.forEach(b => {
@@ -125,7 +122,7 @@ async function openSingle(id) {
 
         document.getElementById('modal-labels').innerHTML = (data.labels || []).map(l => `
             <span class="bg-red-50 text-[#F56565] border border-red-100 px-3 py-1 rounded-full text-[11px] font-bold uppercase">
-                ${l}
+                 ${l}
             </span>
         `).join('');
         
